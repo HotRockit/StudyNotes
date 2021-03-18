@@ -130,3 +130,14 @@ git branch -dr 分支名
 
 **master主分支应该很稳定，主要用来发布新版本，一般不在这个分支上工作，工作一般在dev分支上，工作完之后，可以把dev分支上的代码merge到master分支上来**
 
+## 7. 可能遇见的错误
+
+1. 在使用git更新或提交项目时候出现 "fatal: The remote end hung up unexpectedly " 原因是推送的文件太大
+
+   ```bash
+   # 修改提交缓存大小为500M，或者更大的数字
+   # --global对当前用户生效，--system对所有用户生效，--local对当前项目生效
+   git config --global http.postBuffer 524288000
+   ```
+
+   
