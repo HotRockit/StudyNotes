@@ -1,4 +1,4 @@
-## 中心控制器
+## 1. 中心控制器
 
 **SpringMVC围绕DispatcherServlet设计，DispatcherServlet的作用是将请求分发到不同的处理器。Spring MVC框架像许多其他MVC框架一样, 以请求为驱动 , 围绕一个中心Servlet分派请求及提供其他功能，DispatcherServlet是一个实际的Servlet (它继承自HttpServlet 基类)**
 
@@ -16,7 +16,7 @@
 
 `上图中实线表示SpringMVC框架提供的实现，虚线代表需要用户自己实现的部分`
 
-## SpringMVC详细执行流程
+## 2. SpringMVC详细执行流程
 
 ​	我们假设请求的url为 : http://localhost:8080/SpringMVC/hello
 
@@ -47,7 +47,7 @@
 11. DispatcherServlet根据视图解析器解析的视图结果，调用具体的视图。
 12. 最终视图呈现给用户。
 
-## 不使用注解的SpringMVC
+## 3. 不使用注解的SpringMVC
 
 1. web.xml配置
 
@@ -119,7 +119,7 @@
    }
    ```
 
-## 使用注解的SpringMVC
+## 4. 使用注解的SpringMVC
 
 1. web.xml配置一样
 
@@ -223,7 +223,7 @@
 
    通常，我们只需要**手动配置视图解析器**，而**处理器映射器**和**处理器适配器**只需要开启**注解驱动**即可，而省去了大段的xml配置
 
-## RestFul
+## 5. RestFul
 
 **Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制**
 
@@ -278,9 +278,9 @@
      @PatchMapping
      ```
 
-## 结果跳转方式
+## 6. 结果跳转方式
 
-### ModelAndView
+### 6.1 ModelAndView
 
 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面
 
@@ -297,7 +297,7 @@ public class ControllerTest1 implements Controller {
 }
 ```
 
-### ServletAPI
+### 6.2 ServletAPI
 
 通过设置ServletAPI , 不需要视图解析器 
 
@@ -330,7 +330,7 @@ public class ResultGo {
 }
 ```
 
-### SpringMVC
+### 6.3 SpringMVC
 
 1. **通过SpringMVC来实现转发和重定向 - 无需视图解析器**
 
@@ -380,9 +380,9 @@ public class ResultSpringMVC {
    }
    ```
 
-## 数据处理
+## 7. 数据处理
 
-### 处理提交数据
+### 7.1 处理提交数据
 
 1. **提交的域名称和处理方法的参数名一致**
 
@@ -440,7 +440,7 @@ public class ResultSpringMVC {
 
      **说明：如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null**
 
-### 数据显示到前端
+### 7.2 数据显示到前端
 
 1. **通过ModelAndView**
 
@@ -493,7 +493,7 @@ public class ResultSpringMVC {
    ModelAndView 可以在储存数据的同时，可以进行设置返回的逻辑视图，进行控制展示层的跳转。
    ```
 
-## 乱码问题
+## 8. 乱码问题
 
 SpringMVC提供了一个过滤器 , 可以在web.xml中配置
 
@@ -629,9 +629,9 @@ SpringMVC提供了一个过滤器 , 可以在web.xml中配置
 
    **自定义完了，记得在web.xml中配置这个过滤器**
 
-## JSON
+## 9. JSON
 
-### 介绍
+### 9.1 介绍
 
 1. JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式
 
@@ -644,7 +644,7 @@ SpringMVC提供了一个过滤器 , 可以在web.xml中配置
    var json = '{"a": "Hello", "b": "World"}'; //这是一个 JSON 字符串，本质是一个字符串
    ```
 
-### JSON 和 JavaScript 对象互转
+### 9.2 JSON 和 JavaScript 对象互转
 
 要实现从JSON字符串转换为JavaScript 对象，使用 JSON.parse() 方法：
 
@@ -688,7 +688,7 @@ var json = JSON.stringify({a: 'Hello', b: 'World'});
 </html>
 ```
 
-### Controller返回JSON数据
+### 9.3 Controller返回JSON数据
 
 #### @Response注解
 
@@ -769,9 +769,9 @@ var json = JSON.stringify({a: 'Hello', b: 'World'});
    @RequestMapping(value = "/json1",produces = "application/json;charset=utf-8")
    ```
 
-## 代码优化
+## 10. 代码优化
 
-### 乱码统一解决
+### 10.1 乱码统一解决
 
 前面解决json乱码比较麻烦，如果`项目中有许多请求则每一个@RequestMapping都要添加`，可以通过Spring配置统一指定，这样就不用每次都去处理了！我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！
 
@@ -792,7 +792,7 @@ var json = JSON.stringify({a: 'Hello', b: 'World'});
 </mvc:annotation-driven>
 ```
 
-### 返回json字符串统一解决
+### 10.2 返回json字符串统一解决
 
 **在类上直接使用 @RestController ，这样子，里面所有的方法都只会返回 json 字符串了，不用再每一个都添加@ResponseBody ！**
 
@@ -814,11 +814,11 @@ public class UserController {
 }
 ```
 
-### 输出集合对象
+### 10.3 输出集合对象
 
 **和之前处理一样,mapper.writeValueAsString方法可以很好的处理Java的集合对象**
 
-### 输出时间对象
+### 10.4 输出时间对象
 
 ```java
 @RequestMapping("/json3")
@@ -859,7 +859,7 @@ public String json4() throws JsonProcessingException {
 }
 ```
 
-### FastJson(补充使用）
+### 10.5 FastJson(补充使用）
 
 `fastjson.jar是阿里开发的一款专门用于Java开发的包，可以方便的实现json对象与JavaBean对象的转换，实现JavaBean对象与json字符串的转换，实现json对象与json字符串的转换。`
 
@@ -897,15 +897,15 @@ public class FastJsonDemo {
 }
 ```
 
-## SSM整合
+## 11. SSM整合
 
 **详情见整合项目ssm-integration**
 
 
 
-## Ajax
+## 12. Ajax
 
-### ${pageContext.request.contextPath}
+${pageContext.request.contextPath}
 
 ${pageContext.request.contextPath}是**JSP取得绝对路径的方法**，等价于<%=request.getContextPath()%>。也就是取出部署的应用程序名或者是当前的项目名称。
  比如我的项目名称是demo1在浏览器中输入为http://localhost:8080/demo1/a.jsp,${pageContext.request.contextPath}或`<%=request.getContextPath()%>`取出来的就是/demo1,而"/"代表的含义就是 [http://localhost:8080](https://link.jianshu.com?t=http://localhost:8080) 故有时候项目中这样写 ${pageContext.request.contextPath}/a.jsp
@@ -1069,7 +1069,7 @@ jQuery.ajax(...)
 
 
 
-## 拦截器
+## 13. 拦截器
 
 * SpringMVC的处理器拦截器类似于**Servlet开发中的过滤器Filter**,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能
 * 拦截器是**AOP思想**的具体应用
@@ -1084,7 +1084,7 @@ jQuery.ajax(...)
 - 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用
 - 拦截器**只会拦截访问的控制器方法**， 如果访问的是jsp/html/css/image/js等静态资源是不会进行拦截的
 
-### 自定义拦截器
+### 13.1 自定义拦截器
 
 **想要自定义拦截器，必须实现 HandlerInterceptor 接口**
 
@@ -1131,7 +1131,7 @@ jQuery.ajax(...)
 
    
 
-## 文件上传下载
+## 14. 文件上传下载
 
 * **如果想使用Spring的文件上传功能，则需要在上下文中配置MultipartResolver**
 
@@ -1158,7 +1158,7 @@ jQuery.ajax(...)
 - **Spring MVC使用Apache Commons FileUpload技术实现了一个MultipartResolver实现类**
 - CommonsMultipartResolver。因此，SpringMVC的文件上传还需要**依赖Apache Commons FileUpload的组件**。
 
-### 文件上传
+### 14.1 文件上传
 
 1、导入文件上传的jar包，commons-fileupload ， Maven会自动帮我们导入他的依赖包 commons-io包；
 
@@ -1278,7 +1278,7 @@ public class FileController {
     }
     ```
 
-### 文件下载
+### 14.2 文件下载
 
 1. 设置 response 响应头
 
