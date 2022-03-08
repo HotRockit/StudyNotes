@@ -325,7 +325,7 @@ MQ消息 队列有如下几个角色
 
 ![](./img/简单模式.png)
 
-这种模式虽然看起来消费者和生产者是直接和队列进行的交互，没有交换机，其实并不是，任何一个信息交换的流程中必然都有交换机的参与，我们虽然没有设置交换机，但是r**abbitMQ里面有一个默认的交换机**。这种模式需要注意，**默认的交换机是direct类型的**，和路由模式的交换机是一样的，所以**发送消息的时候是需要指定一个Routing key，默认的Routing key就是消息队列的名字**。
+这种模式虽然看起来消费者和生产者是直接和队列进行的交互，没有交换机，其实并不是，任何一个信息交换的流程中必然都有交换机的参与，我们虽然没有设置交换机，但是**rabbitMQ里面有一个默认的交换机**。这种模式需要注意，**默认的交换机是direct类型的**，和路由模式的交换机是一样的，所以**发送消息的时候是需要指定一个Routing key，默认的Routing key就是消息队列的名字**。
 
 `The default exchange is implicitly bound to every queue, with a routing key equal to the queue name. It is not possible to explicitly bind to, or unbind from the default exchange. It also cannot be deleted.`
 

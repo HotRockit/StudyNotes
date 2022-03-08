@@ -4,7 +4,7 @@
 
 [配置国内源](https://yeasy.gitbook.io/docker_practice/install/ubuntu)
 
-**docker的工作目录是/var/lib/docker**
+**docker的工作目录是/var/lib/docker**，里面存放了镜像，容器等信息
 
 ## 2. Docker run执行流程
 
@@ -81,15 +81,29 @@
 7. 给镜像增加一个TAG标签，效果是增加一个镜像
 
    ```shell
-   docker tag 镜像id 新的镜像TAG
+   docker tag 镜像id 镜像名:新的镜像TAG
+   docker tag bf756fb1ae65 hello-world:latest
    # docker tag id wdy/tomcat:1.0
    ```
 
 8. 镜像的备份和加载（tar files）
 
    ```shell
-   docker save
-   docker load
+   docker save -o name.tar 镜像ID  
+   docker load --input name.tar   --input也可以换成linux系统的重定向符号,例如docker load < name.tar
+   
+   # 注意上面两个命令和docker export 和 docker import的区别，这两个是导出和导入容器
+   export 和 import 导出导入的是一个容器的快照, 不是镜像本身, 也就是说没有 layer
+   你的 dockerfile 里的 workdir, entrypoint 之类的所有东西都会丢失，commit 过的话也会丢失。
+   快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而save，load镜像存储文件将保存完整记录，体积也更大。
+    docker save 保存的是镜像（image），docker export 保存的是容器（container）；
+    docker load 用来载入镜像包，docker import 用来载入容器包，但两者都会恢复为镜像；
+    docker load 不能对载入的镜像重命名，而 docker import 可以为镜像指定新名称
+    
+    
+    # 下面这一点特别需要注意
+    docker save -o hello-world.tar bf756fb1ae65   这种以镜像ID的方式保存下来的镜像再次加载的时候，生成的镜像是没有imageName和Tag的，这两项的值都为None，而且在docker load --input hello-world.tar的时候输出的内容是Loaded image ID: sha256:bf756fb1ae65adf866bd8c456593cd24beb6a0a061dedf42b26a993176745f6b
+    docker save -o hello-world2.tar hello-world:latest   这种以镜像名加标签的方式保存下来的镜像，在生成新镜像的时候是包含imageName和Tag的，而且就是save的时候用的imageName和Tag，而且在docker load --input hello-world2.tar的时候输出是Loaded image: hello-world:latest，输出的内容不再是imageId相关的信息
    ```
 
 ### 4.3 容器命令
@@ -338,11 +352,11 @@ docker build -f dockerfile文件路径 -t 镜像名:[TAG] 镜像生成的地址
 
 4. ADD
 
-   添加文件，例如添加tomcat，只需要tomcat压缩包，会自动解压
+   添加文件，例如添加tomcat，只需要添加tomcat压缩包，会自动解压
 
 5. WORKDIR
 
-   设置当前工作目录
+   设置当前工作目录，也就是进入容器内部的时候默认的目录，只会影响后面的层，如该目录不存在， WORKDIR 会帮你建立目录
 
 6. VOLUME
 
@@ -350,7 +364,7 @@ docker build -f dockerfile文件路径 -t 镜像名:[TAG] 镜像生成的地址
 
 7. EXPOSE
 
-   暴露哪个端口
+   暴露哪个端口，这个只是声明，并没有真正开启端口，只有进行端口映射的时候才会真正开启端口，而且这个声明类似说明一样，即使没有EXPOSE命令，进行端口映射的时候也会开启指定的端口，但是端口映射使用-P进行随机端口分配的时候会优先分配EXPOSE暴露的端口
 
 8. CMD
 
@@ -371,6 +385,12 @@ docker build -f dockerfile文件路径 -t 镜像名:[TAG] 镜像生成的地址
 12. ENV
 
     构建镜像的时候设置环境变量
+
+13. USER
+
+    USER <user>[:<group>] 或者 USER <UID>[:<GID>]
+
+    USER 指令和 WORKDIR 相似，都是改变环境状态并影响以后的层。 WORKDIR 是改变工作目录，USER 则是改变之后层的执行 RUN CMD 以及 ENTRYPOINT 这类命令的身份。当然，和 WORKDIR 一样， USER 只是帮助你切换到指定用户而已，这个用户必须是事先建立好的，否则无法切换。
 
 **创建一个Centos镜像安装vim和net-tools**
 
