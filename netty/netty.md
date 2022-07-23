@@ -2,7 +2,7 @@
 
 1. Netty是一个异步的，基于事件驱动的网络应用框架。用于开发高性能的，高可靠性的网络应用程序。Netty本质上是一个NIO框架。
 
-   ![netty位置](E:\code\markdown\StudyNotes\netty\img\netty位置.png)
+   ![netty位置](.\img\netty位置.png)
 
 2. Netty组织结构
 
@@ -24,7 +24,7 @@
 
 4. BIO适用于连接数目较少且固定的情况，这种方式对服务器资源要求较高（一个连接一个线程），jdk1.4之前唯一的选择，但程序简单易理解
 
-   ![BIO模式](E:\code\markdown\StudyNotes\netty\img\BIO模式.png)
+   ![BIO模式](.\img\BIO模式.png)
 
 #### 2.1.1 JAVA BIO
 
@@ -100,7 +100,7 @@ public class Server {
 
 3. 适用于连接数目多且连接比较短（轻操作）的情况，程序编写较复杂，**jdk1.4支持**
 
-   ![NIO模式](E:\code\markdown\StudyNotes\netty\img\NIO模式.png)
+   ![NIO模式](.\img\NIO模式.png)
 
 #### 2.2.1 JAVA NIO
 
