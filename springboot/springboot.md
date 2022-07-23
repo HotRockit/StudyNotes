@@ -4165,19 +4165,19 @@ public class DockerEndpoint {
 
 - 激活指定环境
 
-- - 配置文件激活
+  - 配置文件激活
 
-    ```yaml
-    # 在默认的配置文件里面配置
-    spring:
-    	profiles:
-    		active:
-    			prod  #prod环境生效
-    ```
+  ```yaml
+  # 在默认的配置文件里面配置
+  spring:
+  	profiles:
+  		active:
+  			prod  #prod环境生效
+  ```
 
   - 命令行激活：java -jar xxx.jar --**spring.profiles.active=prod  --person.name=haha**(即使在运行的时候指定了激活prod环境，依然可以在运行的时候指定自己的属性值)
 
-- - - **修改配置文件的任意值，命令行优先**
+    - **修改配置文件的任意值，命令行优先**
 
 - 默认配置与环境配置同时生效
 - 同名配置项，profile配置(默认配置文件)优先

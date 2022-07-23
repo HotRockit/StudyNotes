@@ -698,9 +698,9 @@ var json = JSON.stringify({a: 'Hello', b: 'World'});
 
 2. **作用**
 
-​    作用：将方法的返回值，**以特定的格式写入到response的body区域**，进而将数据返回给客户端。
+​    作用：将方法的返回值，**以特定的格式写入到response的body区域**，进而将数据返回给客户端
 
-​    当方法上面没有写ResponseBody,底层会将方法的返回值封装为ModelAndView对象。
+​    当方法上面没有写ResponseBody,底层会将方法的返回值封装为ModelAndView对象
 
 ​    如果返回值是字符串，那么直接将字符串写到客户端；如果是一个对象，会将对象转化为json串，然后写到客户端。
 
@@ -710,7 +710,7 @@ var json = JSON.stringify({a: 'Hello', b: 'World'});
 
 4. 原理
 
-​    控制层方法的返回值是如何转化为json格式的字符串的？其实是**通过HttpMessageConverter中的方法实现的**，它本是一个接口，在其实现类完成转换。如果是bean对象，会调用对象的getXXX（）方法获取属性值并且以键值对的形式进行封装，进而转化为json串。如果是map集合，采用get(key)方式获取value值，然后进行封装。
+​    控制层方法的返回值是如何转化为json格式的字符串的？其实是**通过HttpMessageConverter中的方法实现的**，它本是一个接口，在其实现类完成转换。如果是bean对象，会调用对象的getXXX（）方法获取属性值并且以键值对的形式进行封装，进而转化为json串。如果是map集合，采用get(key)方式获取value值，然后进行封装
 
 #### @RestController注解
 
