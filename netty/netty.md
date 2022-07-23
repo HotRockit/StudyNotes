@@ -2,7 +2,7 @@
 
 1. Netty是一个异步的，基于事件驱动的网络应用框架。用于开发高性能的，高可靠性的网络应用程序。Netty本质上是一个NIO框架。
 
-   ![netty位置](.\img\netty位置.png)
+   ![netty位置](./img/netty位置.png)
 
 2. Netty组织结构
 
@@ -24,7 +24,7 @@
 
 4. BIO适用于连接数目较少且固定的情况，这种方式对服务器资源要求较高（一个连接一个线程），jdk1.4之前唯一的选择，但程序简单易理解
 
-   ![BIO模式](.\img\BIO模式.png)
+   ![BIO模式](./img/BIO模式.png)
 
 #### 2.1.1 JAVA BIO
 
@@ -100,7 +100,7 @@ public class Server {
 
 3. 适用于连接数目多且连接比较短（轻操作）的情况，程序编写较复杂，**jdk1.4支持**
 
-   ![NIO模式](.\img\NIO模式.png)
+   ![NIO模式](./img/NIO模式.png)
 
 #### 2.2.1 JAVA NIO
 
@@ -114,7 +114,7 @@ public class Server {
 
 * JAVA NIO非阻塞模式，使一个线程从某通道发送请求或读取数据，但是它只能得到目前可用的数据，如果没有数据可用，就什么都不会获取，而不是保持线程处于阻塞的状态，所以直到数据变得可读取之前，该线程可以继续做其它事情。非阻塞写也是如此，一个线程请求写入数据到通道，，不需要等待数据完全写入，这个线程可以处理其它事情
 
-  ![java NIO](.\img\java NIO.png)
+  ![java NIO](./img/java NIO.png)
 
   
 
@@ -125,7 +125,7 @@ public class Server {
 
 #### 2.2.3 JAVA NIO三大核心组件的关系
 
-![](.\img\java nio2.png )
+![](./img/java nio2.png )
 
 1. 每个channel都对应一个buffer
 2. 每个thread对应一个selector，一个selector对应多个channel（连接）
@@ -159,13 +159,13 @@ public class Server {
 
 **在JAVA BIO中Buffer是一个顶层父类，它是一个抽象类**
 
-![](.\img\Buffer类.png)
+![](./img/Buffer类.png)
 
-![](.\img\Buffer类常用方法.png)
+![](./img/Buffer类常用方法.png)
 
 ### 3.2 ByteBuffer
 
-![](.\img\ByteBuffer.png)
+![](./img/ByteBuffer.png)
 
 **ByteBuffer支持类型化的put和get，也就是说buffer里面put了什么类型的数据，在get的时候就应该使用什么类型数据的获取方法去获取数据，否则可能会抛出BufferUnderflowException，注意只是可能，有的情况取数据并不会抛出这个异常**
 
@@ -257,7 +257,7 @@ public class ScatteringAndGatheringDemo {
 
 ### 4.1 FileChannel
 
-![](.\img\FileChannel.png)
+![](./img/FileChannel.png)
 
 #### 4.1.1 数据写入文件
 
